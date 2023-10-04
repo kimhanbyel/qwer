@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
 function Navber(){
   return (
     <nav>
-      <div className='main'>
+      <div className='nav_main'>
         <Link href={`/`} className='title'>QBank</Link>
         <a className='cutline'/>
         <Link href={`/list`}>Problem List</Link>
