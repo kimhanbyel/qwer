@@ -11,6 +11,64 @@ a {
   text-decoration: none;
 }
 
+.btn {
+  text-align: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.push a {
+  color: black;
+}
+
+.clear {
+  background-color: aquamarine;
+}
+ 
+.dontclear {
+  background-color: rgb(255, 119, 119);
+}
+
+.comment {
+  display: flex;
+  overflow: scroll;
+}
+
+.commentbody {
+  display: block;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.commentbody .commentdata {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment_item {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+}
+
+.comment_item * {
+  margin: 5px;
+}
+
+.comment_item a {
+  color: black;
+}
+
+.comment_item h2 {
+  height: 80%;
+  overflow: scroll;
+}
+
+.screen {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
 nav {
   align-items: center;
   display: flex;
@@ -49,12 +107,46 @@ nav .cutline {
   height: 100%;
 }
 
+nav .nav_session {
+  justify-items: end;
+}
+
+.new h5{
+  margin: 0;
+}
+
+.new .make-title {
+  height: 25px;
+  width: 500px;
+  margin-bottom: 20px;
+}
+
+.new .make-context {
+  height: 250px;
+  width: 500px;
+  margin-bottom: 20px;
+}
+
 .main .title {
   margin-bottom: 0;
   font-size: xx-large;
   font-weight: 900;
   text-align: center;
   align-items: center;
+}
+
+.pnav {
+  display: flex;
+  justify-items: center;
+  text-align: center;
+  align-items: center;
+  height: 30px;
+  border: 1px solid black;
+  margin: 20px;
+}
+
+.pnav * {
+  margin: 20px;
 }
 
 .push {
@@ -84,6 +176,26 @@ nav .cutline {
   margin-right: 15px;
 }
 
+.problem {
+  text-align: center;
+  display: inline-block;
+}
+
+.problem .p_head h1 {
+  padding: 5px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.problem p {
+  text-align: left;
+}
+
+.problem .p_body {
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+
 .list {
   text-align: center;
 }
@@ -96,4 +208,93 @@ nav .cutline {
 .list th {
   height: 25px;
   border-bottom: 1px solid black;
+}
+
+.p_stats {
+  text-align: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid black;
+}
+
+.p_stats table {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.p_stats th {
+  height: 25px;
+  border-bottom: 1px solid black;
+}
+
+.p-comment .comment{
+  display: flex;
+  height: 35px;
+  justify-content: space-between;
+  text-overflow: ellipsis;
+  margin-left: 10px;
+}
+
+.p-comment input{
+  width: 90%;
+  height: 50px;
+}
+
+.p-comment .btn {
+  height: 55px;
+}
+
+.msg_answer {
+  background: greenyellow;
+}
+
+.msg_wrong {
+  background: rgb(255, 119, 119);
+}
+
+.solved {
+  text-align: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid black;
+}
+
+.solved table {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.solved th {
+  height: 25px;
+  border-bottom: 1px solid black;
+}
+
+td a {
+  font-weight: 600;
+  color: blue;
+}
+
+.first {
+  color: goldenrod;
+  font-weight: 700;
+  font-size: larger;
+  margin: 0;
+}
+
+.second {
+  color: slategray;
+  font-weight: 600;
+  font-size: large;
+  margin: 0;
+}
+
+.third {
+  color:saddlebrown;
+  font-weight: 700;
+  font-size:medium;
+  margin: 0;
+}
+
+.road {
+  width: 1000px;
+  display: flex;
+  color: black;
 }
