@@ -5,8 +5,6 @@ import { ObjectId } from "mongodb";
 
 export default async function handler(req, res){
   const session = await getServerSession(req, res, authOptions)
-  console.log(req.body, session);
-
   const db = await client.db('QBank');
   const result = await db.collection('quest').findOne({'_id': new ObjectId(req.body.id)})
 
@@ -16,6 +14,9 @@ export default async function handler(req, res){
   let right  = result.right;
   let link = `/detail/${result._id}?msg=${encodeURIComponent('틀렸습니다')}`;
   let answer = '틀렸습니다..'
+
+  console.log(req.body.example == result.answer)
+  console.log(typeof(req.body.example), '정답 비교', typeof(result.answer))
   
   if(req.body.example === result.answer){
     solver.push(session.user.email)
@@ -24,6 +25,19 @@ export default async function handler(req, res){
     link = `/detail/${result._id}?msg=${encodeURIComponent('맞았습니다')}`; 
     answer = '맞았습니다!!'
   }
+  else{
+    let canisus = true;
+    if(typeof(req.body.example) === 'object') req.body.example.map((item, i) => {if(result.answer[i] !== item) canisus = false;})
+    else canisus = false;
+    if(canisus){
+      solver.push(session.user.email)
+      solver = [...new Set(solver)];
+      solver_cnt = solver.length, right += 1;
+      link = `/detail/${result._id}?msg=${encodeURIComponent('맞았습니다')}`; 
+      answer = '맞았습니다!!'
+    }
+  }
+
   const new_result = await db.collection('quest').updateOne(
       {'_id': new ObjectId(req.body.id)},
       {
@@ -35,6 +49,7 @@ export default async function handler(req, res){
           }
       }
   )
+
   const new_solved = await db.collection('solved').insertOne({
     'name': session.user.name,
     'answer': answer,

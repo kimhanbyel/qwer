@@ -4,13 +4,13 @@ import { useState } from "react";
 export default function New(){
     const [image, setImage] = useState('');
     const [items, setItems] = useState([]);
-    const [tags, setTags] = useState([]);
     const [text, setText] = useState("");
+    const [type, setType] = useState("radio")
 
     const examCreator = (e) => {
         if (text) {
             e.preventDefault();
-            setItems([...items, text]);
+            setItems([...new Set(items), text]);
             setText("");
         }
     }
@@ -24,6 +24,10 @@ export default function New(){
 
     const deleteHandler = (indexToDelete) => {
         setItems(items.filter((item, index)=>index!==indexToDelete));
+    }
+
+    const onChangeType = (e) => {
+        setType(e.target.value);
     }
     
     return (
@@ -44,7 +48,12 @@ export default function New(){
                     {
                         items.map((item, i) => {
                             return (
-                                <div key={i}><input type="hidden" name="exam" value={item}/><input type="radio" name="example" value={item} required/> {item}<button onClick={()=>{deleteHandler(i)}}>삭제</button></div>
+                                <div key={i}>
+                                    <input type="hidden" name="exam" value={item}/>
+                                    <input type={`${type}`} name="example" value={item}/>
+                                    {item}
+                                    <button onClick={()=>{deleteHandler(i)}}>삭제</button>
+                                </div>
                             )}
                         )
                     }
@@ -54,8 +63,10 @@ export default function New(){
                     <input type="hidden" name="img" value={image}/>
                 </div>
 
-                <div className="new-example">
-                    
+                <br></br>
+                <div className="select_type">
+                    <p>객관식(하나)<input type="radio"  name="type" value='radio' onChange={onChangeType}/></p>
+                    <p>객관식(여러)<input type="radio"  name="type" value='checkbox' onChange={onChangeType}/></p>
                 </div>
                 {items.length>1 ? <button type="submit">등록</button> : ""}
             </form>

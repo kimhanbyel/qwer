@@ -43,7 +43,7 @@ export default async function Detail(props){
                         result.example.map((ex)=>{
                             return (
                                 <div>
-                                    {ex}<input type="radio" name='example' value={ex} required/>
+                                    {ex}<input type={`${result.type ?? "radio"}`} name='example' value={ex}/>
                                 </div>
                             );
                         })
@@ -97,7 +97,7 @@ export default async function Detail(props){
                     : ""
                 }
                 <div className="commentbody">
-                    <Comments comments={comments}/>
+                    <Comments comments={comments} session={session}/>
                 </div>
             </div>
         </div>

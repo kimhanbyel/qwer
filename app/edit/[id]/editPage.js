@@ -5,11 +5,12 @@ export default function EditPage({data}){
     const [image, setImage] = useState(data.img);
     const [items, setItems] = useState(data.example);
     const [text, setText] = useState('');
+    const [type, setType] = useState(data.type)
 
     const examCreator = (e) => {
         if (text) {
           e.preventDefault();
-          setItems([...items, text]);
+          setItems([...new Set(items), text]);
           setText("");
         }
       }
@@ -21,9 +22,13 @@ export default function EditPage({data}){
       reader.onload = () => setImage(reader.result);
     }
 
-    const deleteHandler = (e) => {
-        e.target.parentNode.remove();
-      }
+    const deleteHandler = (indexToDelete) => {
+      setItems(items.filter((item, index)=>index!==indexToDelete));
+    }
+
+    const onChangeType = (e) => {
+      setType(e.target.value);
+    }
     
     return (
         <div className="new">
@@ -47,10 +52,10 @@ export default function EditPage({data}){
                                 <input type="hidden" name="example" value={item}/>
                                 {
                                   data.answer.includes(item) ?
-                                  <><input type="radio" name="example" value={item} defaultChecked/> {item} </>:
-                                  <><input type="radio" name="example" value={item}/> {item} </>
+                                  <><input type={`${type}`} name="answer" value={item} defaultChecked/> {item} </>:
+                                  <><input type={`${type}`} name="answer" value={item}/> {item} </>
                                 }
-                                <button type="button" onClick={deleteHandler}>보기 삭제</button>
+                                <button type="button" onClick={()=>deleteHandler(i)}>보기 삭제</button>
                               </div>
                             )}
                           )
@@ -60,6 +65,17 @@ export default function EditPage({data}){
                     <input type="hidden" name="_id" value={data._id.toString()} />
                     <button type='button' onClick={examCreator}>추가</button>
                 </div>
+                {
+                  type === 'radio' ? 
+                  <div className="select_type">
+                    <p>객관식(하나)<input type="radio"  name="type" value='radio' onChange={onChangeType} defaultChecked/></p>
+                    <p>객관식(여러)<input type="radio"  name="type" value='checkbox' onChange={onChangeType}/></p> :
+                  </div> :
+                  <div className="select_type">
+                    <p>객관식(하나)<input type="radio"  name="type" value='radio' onChange={onChangeType}/></p>
+                    <p>객관식(여러)<input type="radio"  name="type" value='checkbox' onChange={onChangeType} defaultChecked/></p> :
+                  </div>
+                }
                 {
                     items.length>1 ? <button type="submit">수정</button> : ""
                 }

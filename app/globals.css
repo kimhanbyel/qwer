@@ -183,6 +183,15 @@ nav .nav_session {
   margin-right: 15px;
 }
 
+.select_type {
+  display: flex;
+  justify-content: center;
+}
+
+.select_type * {
+  margin: 10px;
+}
+
 .problem {
   width: 100%;
   text-align: center;

@@ -7,6 +7,10 @@ export default async function handler(req, res){
     const session = await getServerSession(req, res, authOptions);
     req.body.author = session.user;
 
+    if(typeof(req.body.example) === 'array'){
+      req.body.example = [...new Set(req.body.example)]
+    }
+
     console.log(req.body)
 
     const db = await client.db('QBank');
@@ -22,6 +26,7 @@ export default async function handler(req, res){
         "right": 0,
         "writer": session.user,
         'img': req.body.img,
+        "type": req.body.type ?? "radio"
     });
     res.redirect(302, `/list/new?msg=${encodeURIComponent("데이터가 성공적으로 들어갔습니다")}`);
   }

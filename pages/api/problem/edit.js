@@ -4,7 +4,6 @@ import { ObjectId } from "mongodb";
 export default async function handler(req, res){
   let cpObj = {...req.body}
   delete cpObj._id;
-  console.log(cpObj)
   const db = await client.db('QBank');
   const result = await db.collection('quest').updateOne({_id:new ObjectId(req.body._id)},
   {$set: {...cpObj}}

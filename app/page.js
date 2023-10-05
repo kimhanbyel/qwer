@@ -16,7 +16,7 @@ export default async function Home(){
       <marquee>단답형 문제들을 다 함께 풀이해요!</marquee>
 
       <div className="push new5">
-        <p>새로운 문제 5개!!! 🌟</p>
+        <p>새로운 문제 5개!!! <a href="https://youtube.com/shorts/xwwLnQK42HI?si=UExd3nFUvBnRCBrk">🌟</a></p>
         <div className="push_quest">
           { 
             newP.map(item => 

@@ -29,7 +29,7 @@ export default async function List(props){
                 <td><Link href={`/detail/${q._id}`}>{q.title}</Link>{q.solver?.includes(session?.user?.email) ? "✅": ""}</td>
                 <td>{q.view}</td>
                 <td>{q.solver_cnt}</td>
-                <td>{q.right/q.submit * 100}%</td>
+                <td>{Math.floor(q.right/q.submit * 100)}%</td>
               </tr>
             );
           })
