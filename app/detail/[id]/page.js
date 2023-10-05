@@ -3,22 +3,23 @@ import client from "@/util/database";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import Comments from "./comments";
 
 export default async function Detail(props){
     const msg = props.searchParams.msg
     const params = props.params
-
+    
     const db = await client.db('QBank');
     const session = await getServerSession(authOptions);
     const result = await db.collection('quest').findOne({'_id': new ObjectId(params.id)});
     const comments = await db.collection('comment').find({'from_id': params.id}).sort({'_id': -1}).toArray();
+    console.log(result)
     const viewup = await db.collection('quest').updateOne(
         {'_id': result._id},
         {$set: {
             'view': result.view + 1,
         }}
-    )
-    // console.log(result, comments)
+        )
     return (
         <div className="problem">
             {
@@ -29,7 +30,8 @@ export default async function Detail(props){
             }
             <div className="p_head">
                 <h1>{result.title}</h1>
-                <h6>{result?.writer?.name}</h6>
+                <img style={{width: "800px"}} src={result?.img}/>
+                
                 <h2>문제 설명</h2>
                 <p>{result.context}</p>
             </div>
@@ -95,16 +97,7 @@ export default async function Detail(props){
                     : ""
                 }
                 <div className="commentbody">
-                {   
-                    comments.map(comment => {
-                        return (
-                            <div className="commentdata">
-                                <p>{comment.writer.name}</p>
-                                <p>{comment.context}</p>
-                            </div>
-                        );
-                    })
-                }
+                    <Comments comments={comments}/>
                 </div>
             </div>
         </div>

@@ -20,7 +20,8 @@ export default async function handler(req, res){
         'solver_cnt': 0,
         'submit': 0,
         "right": 0,
-        "writer": session.user
+        "writer": session.user,
+        'img': req.body.img,
     });
     res.redirect(302, `/list/new?msg=${encodeURIComponent("데이터가 성공적으로 들어갔습니다")}`);
   }

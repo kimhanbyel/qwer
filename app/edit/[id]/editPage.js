@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 export default function EditPage({data}){
-    console.log(data)
+    const [image, setImage] = useState(data.img);
     const [items, setItems] = useState(data.example);
     const [text, setText] = useState('');
 
@@ -13,6 +13,13 @@ export default function EditPage({data}){
           setText("");
         }
       }
+
+    const imageLoadHandler = (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader(file);
+      reader.readAsDataURL(file);
+      reader.onload = () => setImage(reader.result);
+    }
 
     const deleteHandler = (e) => {
         e.target.parentNode.remove();
@@ -25,6 +32,9 @@ export default function EditPage({data}){
                 <div className="new-main">
                     <h5>제목</h5>
                     <input className="make-title" name="title" defaultValue={data.title} maxLength={20} placeholder="20자 이내로 짓을 수 있어요!"/>
+                    <h5>사진</h5>
+                    <img style={{width:"640px"}} src={image}/>
+                    <input type="file" onChange={imageLoadHandler}/>
                     <h5>글 내용</h5>
                     <textarea name="context" className="make-context" placeholder="문제를 적는 곳이니 정확하고 이해하기 쉽게 해주세요!!">{data.context}</textarea>
                 </div>

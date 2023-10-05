@@ -11,6 +11,13 @@ a {
   text-decoration: none;
 }
 
+.screen {
+  margin: 0;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
 .btn {
   text-align: center;
   align-items: center;
@@ -177,6 +184,7 @@ nav .nav_session {
 }
 
 .problem {
+  width: 100%;
   text-align: center;
   display: inline-block;
 }

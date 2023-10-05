@@ -7,12 +7,12 @@ export default async function MySolved(){
     const session = await getServerSession(authOptions)
     const db = await client.db('QBank')
     const solved = await db.collection('quest').find({'solver': session.user.email}).toArray();
-    const solved_road = await db.collection('solved').find({'name':session.user.name}).toArray();
+    const solved_road = await db.collection('solved').find({'name':session.user.name}).sort({date: -1}).toArray();
     const allProblemLength = await (await db.collection('quest').find().toArray()).length;
     return (    
         <div>
             <h2>내가 풀이한 문제들</h2>
-            <p>당신의 휼륭한 업적을 대단히 생각합니다! {solved.length}/{allProblemLength} 해결함!</p>
+            <p>당신의 휼륭한 업적을 대단히 생각합니다! {allProblemLength}개의 문제중 {solved.length}개를 해결함!</p>
             {
                 solved.map(e => {
                     let n = e.solver.indexOf(session.user.email)+1
@@ -26,6 +26,7 @@ export default async function MySolved(){
                     );
                 })
             }
+            <hr></hr>
             <h2>문제 풀이했던 길</h2>
             <p>과거의 길을 걸어가봅시다.</p>
             {
